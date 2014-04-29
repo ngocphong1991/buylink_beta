@@ -113,7 +113,7 @@ if($do=='edit'){
 		$scirpt_file = strtolower("ad_files/".$scrip_name.".php");
 		$my_file = fopen($scirpt_file, 'w') or die("can't open file");
 		//$my = script_content($_POST['script']);
-		fwrite($my_file, script_content($_POST['script'],$_POST['script_type']));
+		fwrite($my_file, script_content($_POST['script'], $_config['www'], $_POST['script_type']));
 		fclose($my_file);
 		
 		downloadZipFile($scirpt_file);

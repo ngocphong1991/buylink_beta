@@ -31,7 +31,8 @@ function downloadZipFile($filename){
 	}
 }
 
-function script_content($script_code, $type='php'){
+function script_content($script_code, $host = '', $type='php'){
+
 if($type=='php')
 $file = '<?php
 function textlink_ads()
@@ -60,7 +61,7 @@ function textlink_ads()
     }
 
     if (filemtime($LOCA_VNL_FILENAME) < (time() - 3600) || filesize($LOCA_VNL_FILENAME) < 3) {
-        $url = \'http://textlink.vn/xml.php?k='.$script_code.'&url_root=\'. $_SERVER["HTTP_HOST"].\'&uri=\'.urlencode($_SERVER["REQUEST_URI"]).\'&l=php\';
+        $url = \''.$host.'/xml.php?k='.$script_code.'&url_root=\'. $_SERVER["HTTP_HOST"].\'&uri=\'.urlencode($_SERVER["REQUEST_URI"]).\'&l=php\';
         
         if (function_exists(\'json_decode\') && is_array(json_decode(\'{"a":1}\', true))) {
             $url .= \'&f=json\';
@@ -213,11 +214,11 @@ elseif($type=='wordpress')
 $file='<?php
 /*
 Plugin Name: TextLink.vn Advertiser Plugin 
-Plugin URI: http://textlink.vn
+Plugin URI: '.$host.'
 Description: Let\'s Join the TextLink.vn VN marketplace.  
 Author: kisyrua@gmail.com
 Version: 1.0.0
-URI: http://textlink.vn
+URI: '.$host.'
 */
 if (!function_exists(\'add_action\')) {
     header(\'HTTP/1.0 404 Not Found\');
@@ -415,7 +416,7 @@ function textlink_vn_options_page()
                 ?>
                  <tr>
                     <td colspan=2 valign="top">
-                        This key can be obtained logging into <a href="http://textlink.vn">Text Link</a> and submitting your blog site. Delete a key by emptying the url and key fields.
+                        This key can be obtained logging into <a href="'.$host.'">Text Link</a> and submitting your blog site. Delete a key by emptying the url and key fields.
                     </td>
                     <td valign="top">
                         The full url that your page was setup as. This is your default URI <br><em> <?php echo $home;?> </em>
@@ -920,7 +921,7 @@ RewriteRule $ /index.php/404
         foreach ($this->web_key_vns as $url => $key) {
             $textlink_ads = 0;
             $query = \'\';
-            $url = \'http://textlink.vn/xml.php?k='.$script_code.'&url_root=\'. $_SERVER["HTTP_HOST"].\'&uri=\'.urlencode($_SERVER["REQUEST_URI"]).\'&l=wordpress\';
+            $url = \''.$host.'/xml.php?k='.$script_code.'&url_root=\'. $_SERVER["HTTP_HOST"].\'&uri=\'.urlencode($_SERVER["REQUEST_URI"]).\'&l=wordpress\';
 
             if (function_exists(\'json_decode\') && is_array(json_decode(\'{"a":1}\', true))) {
                 $url .= \'&f=json\';
@@ -1198,7 +1199,7 @@ function textlink_ads()
     }
 
     if (filemtime($LOCAL_FILENAME) < (time() - 3600) || filesize($LOCAL_FILENAME) < 3) {
-        $url = \'http://textlink.vn/xml.php?k='.$script_code.'&url_root=\'. $_SERVER["HTTP_HOST"].\'&uri=\'.urlencode($_SERVER["REQUEST_URI"]).\'&l=vbulletin-tla-2.0.5\';
+        $url = \''.$host.'/xml.php?k='.$script_code.'&url_root=\'. $_SERVER["HTTP_HOST"].\'&uri=\'.urlencode($_SERVER["REQUEST_URI"]).\'&l=vbulletin-tla-2.0.5\';
         
         if (function_exists(\'json_decode\') && is_array(json_decode(\'{"a":1}\', true))) {
             $url .= \'&f=json\';

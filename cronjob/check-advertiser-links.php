@@ -14,23 +14,22 @@ $arr_user = getFileContent($arr_urr);
 
 function getFileContent($arr_urr){
 	foreach($arr_urr as $url){
+
 		$pub_url = str_replace("http://", "", trim($url['url']));
         $pub_url = "http://" . $pub_url;
-		//echo $url;
+
 		$content = get_web_page(trim($pub_url));
-		//preg_match_all("/href=\"([^\"]*)\"(?:[^>]*)>(?:[^<]*)/is", $content, $links);
-		//print_r($links[1]);
 		$ad_arr1 = array("http://", "www.");
         $ad_arr2 = array("", "");
 		$ad_url = str_replace($ad_arr1, $ad_arr2, trim($url['ad_url']));
-		
+
 		$pieces_url = explode("/", $ad_url);
 		if(is_array($pieces_url))
 		$ad_url = $pieces_url[0];
 		
 		//echo $ad_url;		
 		//$key = array_search('sdfsd', $array);
-		if(strpos($content, $ad_url)!==false){	
+		if(strpos($content, $ad_url)!==false){
     		echo $ad_url.'có tồn tại trong'.$url['url'];
 			echo '<br>';
 			mysql_query('' . 'UPDATE publishersinfo SET update_date = CURDATE() WHERE pid=\'' . $url["pid"] . '\' LIMIT 1');
@@ -42,13 +41,8 @@ function getFileContent($arr_urr){
 				continue;
 			}else{
 				mysql_query('' . 'insert into cronjob_publisher set pid=\''.$url["pid"].'\', uid=\''.$url["uid"].'\', adv_id = \''.$url["adv_id"].'\',adv_url = \''.addslashes($url["ad_url"]).'\', url=\''.addslashes($url["url"]).'\', cron_time= CURDATE() ');
-				//email to publisher notify
-				
 				$arr_user["web"][$url["uid"]] .= $url["url"];
-				$arr_user["text"][$url["uid"]] .='<b>Link Text:</b> '.addslashes($url[ad_des]).'<br><b>Link URL:</b>  <a href="'.addslashes($url["ad_url"]).'" target="_blank">'.addslashes($url["ad_url"]).'</a><br><b>Placed On:</b>  <a href="'.addslashes($url["url"]).'" target="_blank">'.addslashes($url["url"]).'</a><br>';				
-				//print_r($arr_user);				
-				//sent_mail('tien.pham@netlink.vn', 'Pham tien', $url["ad_des"], $url["ad_url"], $url["url"]);
-				//sent mail				
+				$arr_user["text"][$url["uid"]] .='<b>Link Text:</b> '.addslashes($url[ad_des]).'<br><b>Link URL:</b>  <a href="'.addslashes($url["ad_url"]).'" target="_blank">'.addslashes($url["ad_url"]).'</a><br><b>Placed On:</b>  <a href="'.addslashes($url["url"]).'" target="_blank">'.addslashes($url["url"]).'</a><br>';
 			}
 		}
 	}
@@ -57,13 +51,8 @@ function getFileContent($arr_urr){
 
 if(count($arr_user)>0){
 	foreach($arr_user["text"] as $userId=>$text){
-		//echo $text;
-		//get email
 		$to = $cls_user->getEmail($userId);
-		
-		//$to  = 'tien.pham@netlink.vn';
-//$to .= 'kisyrua@yahoo.com';
-// subject
+
 $subject = 'Important: Link Missing';
 
 // message
@@ -108,33 +97,11 @@ mail($to, $subject, $message, $headers);
 function getListAds(){
 	$arr_url = array();
 	$slq ="select publishersinfo.pid, publishersinfo.uid, publishersinfo.url, publishersinfo.set_price, advertisersinfo.end_date,advertisersinfo.adv_id, advertisersinfo.ad_url,advertisersinfo.ad_des from publishersinfo LEFT JOIN (advertisersinfo) ON (advertisersinfo.pid = publishersinfo.pid) where  publishersinfo.status = 2 and publishersinfo.update_date < CURDATE() and advertisersinfo.is_paid='Y' and advertisersinfo.start_date <= CURDATE() and advertisersinfo.end_date >= CURDATE() limit 30 ";
-
-	//$slq ="select publishersinfo.pid, publishersinfo.uid, publishersinfo.url, publishersinfo.set_price, advertisersinfo.end_date,advertisersinfo.adv_id, advertisersinfo.ad_url,advertisersinfo.ad_des from publishersinfo LEFT JOIN (advertisersinfo) ON (advertisersinfo.pid = publishersinfo.pid) where publishersinfo.pid NOT IN (SELECT cronjob_publisher.pid FROM cronjob_publisher WHERE cron_time =  CURDATE()) AND publishersinfo.status = 2 and publishersinfo.update_date < CURDATE() and advertisersinfo.is_paid='Y' and advertisersinfo.start_date <= CURDATE() and advertisersinfo.end_date >= CURDATE() limit 15 ";
-	//$order_by = " order by advertisersinfo.adv_id DESC";
-	$money_earn_obj = mysql_query($slq.$order_by);
+	$money_earn_obj = mysql_query($slq);
     while ($row = mysql_fetch_assoc($money_earn_obj)) {
-		//print_r($row);
-		//$arr_url[] = array($row['url'], $row['ad_url']);
 		$arr_url[] = $row;
 	}
 	return $arr_url;
 }
 
-/*$ad_arr1 = array("http://", "www.");
-        $ad_arr2 = array("", "");
-		$ad_url = str_replace($ad_arr1, $ad_arr2, trim($url['ad_url']));
-		
-		$pieces_url = explode("/", $ad_url);
-		if(is_array($pieces_url))
-		$ad_url = $pieces_url[0];
-		
-		
-		$ad_url0 = "http://" . $ad_url;
-		$ad_url1 = "http://www." . $ad_url;
-		$ad_url2 = "http://www." . $ad_url."/";
-		$ad_url3 = "http://" . $ad_url."/";
-		//echo $ad_url;		
-		//$key = array_search('sdfsd', $array);
-		if(strpos($content, $ad_url)!==false){	
-		*/
 ?>
