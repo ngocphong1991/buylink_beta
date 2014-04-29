@@ -296,6 +296,7 @@
     width: 100%;
     background: url("../images/bg-doi-tac.png") repeat-x;
     height: 200px;
+    position: absolute;
 }
 .message-error{
     color: red;

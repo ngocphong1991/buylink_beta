@@ -44,23 +44,23 @@ elseif(isset($_POST) && count($_POST)){
 			$_SESSION['email'] = $_POST['email'];
 		else $msg['email'] = "The email not format correct";
 	}else $msg['email'] = "Please enter your email";
-	
+
 	if($_POST['mobile']!='' && $_POST['mobile']){
-		
+
 		if(!ereg("(^['a-zA-Z0-9']{1,}['a-zA-Z0-9|\.|\_']{1,}['a-zA-Z0-9']{1,}$)",trim($_POST['mobile']))){
      		$msg['mobile'] = "The phone must be number";
-   		 }		
-		$_SESSION['phone'] = $_POST['mobile'];		
+   		 }
+		$_SESSION['phone'] = $_POST['mobile'];
 	}
-	
-	
+
+
 	if($_POST['text_ad_pass']!='' && $_POST['text_ad_pass']){
 		if(strlen($_POST['text_ad_pass'])<6) $msg['pass'] = "The password must be at least 6 characters.";
 		if($_POST['text_ad_pass']!=$_POST['text_ad_pass2']) $msg['pass'] = "The re-password not match.";
 		if(count($msg)==0)
 			$_SESSION['text_ad_pass'] = $_POST['text_ad_pass'];
 	}else $msg['pass'] = "Please enter the password.";
-	
+
 	if($_POST['username']!='' && $_POST['username']){
 		if(strlen($_POST['username'])<4) $msg['username'] = "The username must be at least 4 characters.";
 		$username_valid = isValid($_POST['username'], 'username');
@@ -108,9 +108,9 @@ elseif(isset($_POST) && count($_POST)){
 		$mess='<p>The highlighted information is missing or incorrect.<br> If you need further assistance, please contact SEOsupport@mediawhiz.com</p>';
 		foreach($msg as $err_mess){
 			$mess .= '<p><span>'.$err_mess.'</span></p>';
-			$smarty->assign('msg',$mess);	
-		}	
-	 }	
+			$smarty->assign('msg',$mess);
+		}
+	 }
 }
 
 $allCountry = $cls_country->getAll('');

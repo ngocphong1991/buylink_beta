@@ -30,6 +30,13 @@
         <nav class="tl-nav">
             <a href="{$_config.www}/advertisers" title="Advertisers" class="tl-nav-item active advertisers">Advertisers <i class="icon-advertisers"></i></a>
             <a href="{$_config.www}/publishers" title="Publishers" class="tl-nav-item publishers">Publishers <i class="icon-publishers"></i></a>
+
+            <div style="float: right;padding-top: 5px">
+               <a target="_blank" href="http://www.facebook.com/sharer.php?u={$_config.www}"><img src="{$template_dir}/images/iconfacebook.png"></a>
+               <a target="_blank" href="https://twitter.com/share"><img src="{$template_dir}/images/icontwitter.png"></a>
+               <a target="_blank" href="https://plus.google.com/share?url={$_config.www}"><img src="{$template_dir}/images/icongoogle.png"></a>
+
+            </div>
             <!--
             <a href="#" title="Agencies" class="tl-nav-item agencies">Agencies <i class="icon-agencies"></i></a>
             -->

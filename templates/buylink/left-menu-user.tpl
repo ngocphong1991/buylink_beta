@@ -18,7 +18,7 @@
     <div class="ad-block">
         <h4>Become an affiliate</h4>
         <p>Earn additional money by placing an affiliate link to MediaWhiz SEO on your website. Set-up only takes 2 minutes!</p>
-        <p><a href="#" title="Join Now">Join Now!</a>
+        <p><a href="{$_config.www}/register.php" title="Join Now">Join Now!</a>
     </div>
 
     <div class="fanpagefacebook">

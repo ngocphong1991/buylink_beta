@@ -1,5 +1,5 @@
 <?php
-ob_start();
+//ob_start();
 error_reporting(0);
 session_start();
 
@@ -25,7 +25,7 @@ require_once("pagination.php");
 
 setlocale(LC_MONETARY, 'en_US');
 //setlocale(LC_MONETARY, 'vi_VN');
-
+print_r($_config);
 $smarty = new Smarty;
 
 if($admin_page == 'Y') {
@@ -67,14 +67,14 @@ $TIP = '<p align="left" class="post-footer align-left" style="margin-bottom: 10p
 		<span class="tips">'.$_config['website_name'].' '.$_lang['Tip'].':</span>
 		<strong><span id="tips_text">'.
 			stripslashes($tip);
-		'</span></strong> 
+		'</span></strong>
 	</span>
 </p>';
 
 if($_SESSION[uid]){
 	$total_cart = getTotalCart();
 	$smarty->assign('total_cart', $total_cart);
-	
+
 }
 ob_end_clean();
 ?>

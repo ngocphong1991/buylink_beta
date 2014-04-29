@@ -1,4 +1,8 @@
 <!-- FOOTER -->
+<div class="doitac">
+    <p>noidug</p>
+    <img alt="đối tác" src="{$template_dir}/images/doi-tac.png">
+</div>
 <div class="footer">
     <div class="container">
         <div class="row">
@@ -33,6 +37,11 @@
                 </ul>
             </div>
         </div>
+    </div>
+    <div style="float: right;margin-right: 100px;position: relative;top: 200px;right: 20px">
+        <a href="#">
+        <img src="{$template_dir}/images/icon-gotop.png">
+        </a>
     </div>
     <div class="copyright">Copyright &copy; Design by VDO</div>
 </div>

@@ -64,15 +64,14 @@
                 <div class="blog-tabs">
                     <ul class="nav nav-tabs" id="blog-tab">
                         <!--
-                        <li class="active"><a data-toggle="tab" href="#blog">Blog</a></li>-->
-                        <li class="active"><a data-toggle="tab" href="#faq">Hỏi đáp</a></li>
+                        <li class="active"><a data-toggle="tab" href="#blog">Blog</a></li>
                         <li class=""><a data-toggle="tab" href="#new">Tin tức</a></li>
+                        -->
+                        <li class="active"><a data-toggle="tab" href="#faq">Hỏi đáp</a></li>
                     </ul>
                     <div class="tab-content" id="myTabContent">
-                        <div id="blog" class="tab-pane fade active in">
-                            <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
-                        </div>
-                        <div id="faq" class="tab-pane fade">
+
+                        <div id="faq" class="tab-pane fade active in">
                             <ul>
                                 <li><h5><i class="icon-blog"></i>Buy Text Link</h5></li>
                                 <li><p>Xây dựng hệ thống liên kết sạch và tự nhiên với hệ thống các website</p></li>
@@ -94,8 +93,4 @@
             </div>
         </div>
     </div>
-</div>
-<div class="doitac">
-    <p>noidug</p>
-    <img alt="đối tác" src="{$template_dir}/images/doi-tac.png">
 </div>
