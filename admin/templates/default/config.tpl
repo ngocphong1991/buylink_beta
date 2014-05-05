@@ -17,7 +17,7 @@
                             {if $smarty.get.update}
                                 <div style="padding: 20px; background: #DFF0D8; color: #3C763D; font-size: 14px; border-radius: 5px; margin: 10px 5px">Update successful !</div>
                             {else}
-                                <div style="padding: 20px; border: 1px solid ##EBCCD1; background: #EBCCD1; color: #A94442; font-size: 14px; border-radius: 5px; margin: 10px 5px">
+                                <div style="padding: 15px; border: 1px solid ##EBCCD1; background: #EBCCD1; color: #A94442; font-size: 14px; border-radius: 5px; margin: 10px 5px 30px">
                                     <p><b>Warning !</b></p> <p>This is information very importance of website. If you don't understand it. Please not change anything!</p>
                                 </div>
                             {/if}
@@ -25,8 +25,8 @@
                             <table width="100%" cellspacing="1" cellpadding="5" border="0">
                                 {foreach from=$config key=k item=v}
                                 <tr>
-                                    <td width="20%" class="td"><b>{$k}</b></td>
-                                    <td class="td"><input name="{$k}" type="text" size="40" class="effect" id="new_pass2" value="{$v}" /></td>
+                                    <td width="30%" class="td"><b>{$k|replace:'_':' '|upper}</b></td>
+                                    <td class="td"><input name="{$k}" type="text" size="40" class="effect" id="new_pass2" value="{if $k == 'template' && $v=='default'}buylink{else}{$v}{/if}" /></td>
                                 </tr>
                                 <tr>
                                     <td>&nbsp;</td>
