@@ -4,7 +4,6 @@ function downloadZipFile($filename){
 	
 	$zip = new ZipArchive();
 	$filenameZip = $filename . '.zip';
-	echo $filename;
 	$this_php_version = substr(phpversion(),0,((strpos(phpversion(), '-')===FALSE)?strlen(phpversion()):strpos(phpversion(), '-')));
 	if ($this_php_version < '5.0.0') 
 	{	// PHP release equals 4.4.9 or older version

@@ -252,7 +252,7 @@ function updateWebsite(type)
 			if(data.result == 'success'){
 				$('updateWebsiteResults').innerHTML = data.output;
 				$('updateWebsiteResults').style.display = 'block';
-				setTimeout("$('updateWebsiteResults').style.display = 'none'", 3000);
+				setTimeout("$('updateWebsiteResults').style.display = 'none'", 10000);
 			}else{
 				$('updateWebsiteErrors').innerHTML = data.output;
 				$('updateWebsiteErrors').style.display = 'block';

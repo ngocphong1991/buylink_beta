@@ -49,30 +49,39 @@ if($_POST['action']=='update_info') {
     if (!file_exists('uploads/avatars'))
         mkdir('uploads/avatars');
     if ($_FILES["avatar"]["name"] != null) {
-        $newFile = "avatar_" . $_FILES["avatar"]['size'] . "_" . time('now') . "." . substr($_FILES["avatar"]["name"], strrpos($_FILES["avatar"]["name"], '.') + 1);
-        move_uploaded_file($_FILES["avatar"]["tmp_name"], "uploads/avatars/" . $newFile);
-        unlink($myProfile['avatar']);
-        $value .= ", avatar = '".$_config['www']."/uploads/avatars/".$newFile."'";
+        if(!in_array($_FILES["avatar"]["type"],array("image/jpeg", "image/pjpeg", "image/gif", "image/png")))
+            $msg_error = 'Định dạng file ảnh không đúng, vui lòng chọn file ảnh có định dạng .jpg, .png hoặc .gif';
+        else{
+            $newFile = "avatar_" . $_FILES["avatar"]['size'] . "_" . time('now') . "." . substr($_FILES["avatar"]["name"], strrpos($_FILES["avatar"]["name"], '.') + 1);
+            move_uploaded_file($_FILES["avatar"]["tmp_name"], "uploads/avatars/" . $newFile);
+            unlink($myProfile['avatar']);
+            $value .= ", avatar = '".$_config['www']."/uploads/avatars/".$newFile."'";
+        }
     }
-
-    if($cls_user->updateOne($myProfile['uid'], $value)) {
-        $msg_profile = 'Your info has been changed';
+    if(!$msg_error){
+        if($cls_user->updateOne($myProfile['uid'], $value)) {
+            $msg_profile = 'Thông tin của bạn đã được cập nhật';
+        }
     }
 }
 if($_POST['action']=='update_pass') {
     $myProfile = $cls_user->getMyProfile();
 
     if(strlen($_POST['data']['password'])<6) {
-        $msg_profile = 'Your password at least 7 characters long';
+        $msg_error = 'Mật khẩu phải có ít nhất 6 ký tự';
     } else {
 
         if($_POST['data']['password']==$_POST['data']['password_confirm']) {
-            $value = "password='".md5($_POST['data']['password'])."'";
-            if($cls_user->updateOne($myProfile['uid'], $value)) {
-                $msg_profile = 'Your password has been changed!';
+            if($myProfile['password'] == md5($_POST['data']['password'])){
+                $msg_error = 'Mật khẩu mới trùng với mật khẩu cũ!';
+            }else{
+                $value = "password='".md5($_POST['data']['password'])."'";
+                if($cls_user->updateOne($myProfile['uid'], $value)) {
+                    $msg_profile = 'Mật khẩu mới đã được cập nhật';
+                }
             }
         } else {
-            $msg_profile = 'Your password does not match';
+            $msg_error = 'Mật khẩu xác nhận không trùng khớp';
         }
     }
 }
@@ -81,15 +90,15 @@ if($_POST['action']=='update_email') {
 
     if($_POST['data']['email_change']==$_POST['data']['email_change_confirm']) {
         $email_valid = isValid($_POST['data']['email_change'], 'email');
-        if($email_valid==1) $msg_profile = "The email had exist.";
+        if($email_valid==1) $msg_error = "Email này đã tồn tại, vui lòng chọn email khác!";
         elseif($email_valid==2){
             $value = "email='".$_POST['data']['email_change']."'";
             if($cls_user->updateOne($myProfile['uid'], $value)) {
-                $msg_profile = 'Your email has been changed!';
+                $msg_profile = 'Email mới đã được cập nhật';
             }
-        }else $msg_profile = "The email not format correct";
+        }else $msg_error = "Email không đúng định dạng";
     } else {
-        $msg_profile = 'Your email does not match';
+        $msg_error = 'Email xác nhận không trùng khớp!';
     }
 
 }
@@ -109,10 +118,10 @@ if($_POST['action']=='data_trans') {
         $v .= ",'".$_POST['data_trans']."'";
         $v .= ",'".time()."'";
 
-        if($cls_transection->insertOne($f, $v)) $msg = "Transfer money successful";
-        else $msg = "Error insert transection";
+        if($cls_transection->insertOne($f, $v)) $msg = "Chuyển tiền thành công";
+        else $msg = "Có lỗi xảy ra trong khi chuyển tiền.";
 
-    } else $msg = "Error while transfer money";
+    } else $msg = "Có lỗi xảy ra trong khi chuyển tiền.";
 
     $smarty->assign('msg_profile', $msg);
 }
@@ -175,7 +184,7 @@ if($_POST['action']=='data_withdraw'){
     $smarty->assign('error', $error);
     $smarty->assign('color', $color);
 }
-
+$smarty->assign('msg_error',$msg_error);
 // Money history
 /**/
 $smarty->assign('page', isset($_GET['page']) && $_GET['page'] && in_array($_GET['page'], array('history', 'money_coupon','transfer'))  ? $_GET['page'] : '');

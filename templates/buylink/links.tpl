@@ -1,4 +1,4 @@
-﻿<div class="wrapper paper">
+<div class="wrapper paper">
 <!--test de commit-->
     <div class="container">
         <div class="row">

@@ -593,31 +593,29 @@ function update_publisher($post_vars, $type="update") {
 	
 	$post['wname'] = mysql_real_escape_string(strip_tags(trim($post['wname'])));
 	$post['wdes'] = mysql_real_escape_string(strip_tags(trim($post['wdes'])));
-	// $gpr = google_page_rank($post[url]);
-	// echo '' . 'update `publishersinfo` set `websitename`=\'' . $post['wname'] . '\', `url`=\'' . $post['url'] . '\', `description`=\'' . $post['wdes'] . '\', `catid`=\'' . $post['cats'] . '\' , `subcatid`=\'' . $post['subcats'] . '\'  where uid=\'' . $_SESSION['uid'] . '\' and pid=\'' . $post['update_pid'] . '\'';
-   $pid = intval($post[pid]);
+    $post['wsale'] = isset($post['wsale']) && is_numeric($post['wsale']) ? $post['wsale'] : 0 ;
+	$pid = intval($post[pid]);
    
    if($type=="update_cat")
    { 
    		$gpr = google_page_rank($post[url]);
-		//$script_code = unique_id(20);	
    		$res = mysql_query('' . 'update `publishersinfo` set  `catid`=\'' . $post['cats'] . '\' ,`adposition`=\'' . $post['adposition'] . '\', `langid`=\'' . $post['langid'] . '\', `catIds`=\'' . $catIds . '\', `google_page_rank`=\'' . $gpr . '\'  where uid=\'' . $_SESSION['uid'] . '\' and pid=\'' . $_SESSION['pid'] . '\'');
-	  if($res && $_SESSION[email]){
-	  //sendmail  
-	  include_once("libs/template.mail.php");
-	  $to_email      =  $_SESSION[email];
-	  $type ="publisher_add_site";
-	  $publisher_arr = array();
-	  $publisher_arr[pid]= $_SESSION[pid];
-	  $publisher_arr[url]= $post[url];
-	  $to_username=$_SESSION[fullname];	  
-		//$type='', $utype='', $publisher_arr = array(),$adv_arr=array()
-	  mailTemplates($to_email, $to_username, $type, '', $publisher_arr);
-	  //end send mail
+        if($res && $_SESSION[email]){
+        //sendmail
+        include_once("libs/template.mail.php");
+        $to_email      =  $_SESSION[email];
+        $type ="publisher_add_site";
+        $publisher_arr = array();
+        $publisher_arr[pid]= $_SESSION[pid];
+        $publisher_arr[url]= $post[url];
+        $to_username=$_SESSION[fullname];
+
+        mailTemplates($to_email, $to_username, $type, '', $publisher_arr);
+
 	}
 		
    }elseif($type=="edit"){
-   		$res = mysql_query('' . 'update `publishersinfo` set `websitename`=\'' . $post['wname'] . '\', `description`=\'' . $post['wdes'] . '\', `keywords`=\'' . $post['keywords'] . '\',`catid`=\'' . $post['cats'] . '\' , `catIds`=\'' . $catIds . '\'  where uid=\'' . $_SESSION['uid'] . '\' and pid=\'' . $pid . '\'');
+   		$res = mysql_query('' . 'update `publishersinfo` set `websitename`=\'' . $post['wname'] . '\', `description`=\'' . $post['wdes'] . '\', `sale_price`=\'' . $post['wsale'] . '\', `set_price`=\'' . $post['wsale'] . '\', `keywords`=\'' . $post['keywords'] . '\',`catid`=\'' . $post['cats'] . '\' , `catIds`=\'' . $catIds . '\'  where uid=\'' . $_SESSION['uid'] . '\' and pid=\'' . $pid . '\'');
    }elseif($type=="all"){   	
 	   $url = getURLPulisher($pid);
 	   if($url){
@@ -625,22 +623,16 @@ function update_publisher($post_vars, $type="update") {
 		   $ar  = alexarank($url);
 	   }	
 	   if($gpr>0 && $ar>0){
-	 	  $res = mysql_query('' . 'update `publishersinfo` set `websitename`=\'' . $post['wname'] . '\', `description`=\'' . $post['wdes'] . '\', `keywords`=\'' . $post['keywords'] . '\',`catid`=\'' . $post['cats'] . '\' , `catIds`=\'' . $catIds . '\', `langid`=\'' . $post[langid] . '\',`google_page_rank`=\'' . $gpr . '\', `alexa_rank`=\'' . $ar . '\', `adposition`=\'' . $post['adposition'] . '\' ,`restriction`=\'' . $post['restriction'] . '\', `approval_method`=\'' . $post['approval_method'] . '\' where uid=\'' . $_SESSION['uid'] . '\' and pid=\'' .  $pid . '\'');
+	 	  $res = mysql_query('' . 'update `publishersinfo` set `websitename`=\'' . $post['wname'] . '\', `description`=\'' . $post['wdes'] . '\', `keywords`=\'' . $post['keywords'] . '\',`catid`=\'' . $post['cats'] . '\' , `catIds`=\'' . $catIds . '\', `langid`=\'' . $post[langid] . '\',`google_page_rank`=\'' . $gpr . '\', `alexa_rank`=\'' . $ar . '\', `adposition`=\'' . $post['adposition'] . '\', `sale_price`=\'' . $post['wsale'] . '\', `set_price`=\'' . $post['wsale'] . '\', `restriction`=\'' . $post['restriction'] . '\', `approval_method`=\'' . $post['approval_method'] . '\' where uid=\'' . $_SESSION['uid'] . '\' and pid=\'' .  $pid . '\'');
 	   }else
-   		$res = mysql_query('' . 'update `publishersinfo`set `websitename`=\'' . $post['wname'] . '\', `description`=\'' . $post['wdes'] . '\', `keywords`=\'' . $post['keywords'] . '\',`catid`=\'' . $post['cats'] . '\' , `catIds`=\'' . $catIds . '\', `langid`=\'' . $post[langid] . '\', `adposition`=\'' . $post['adposition'] . '\' ,`restriction`=\'' . $post['restriction'] . '\', `approval_method`=\'' . $post['approval_method'] . '\' where uid=\'' . $_SESSION['uid'] . '\' and pid=\'' .  $pid . '\'');
+   		$res = mysql_query('' . 'update `publishersinfo`set `websitename`=\'' . $post['wname'] . '\', `description`=\'' . $post['wdes'] . '\', `keywords`=\'' . $post['keywords'] . '\',`catid`=\'' . $post['cats'] . '\' , `catIds`=\'' . $catIds . '\', `langid`=\'' . $post[langid] . '\', `adposition`=\'' . $post['adposition'] . '\' ,`restriction`=\'' . $post['restriction'] . '\', `sale_price`=\'' . $post['wsale'] . '\', `set_price`=\'' . $post['wsale'] . '\', `approval_method`=\'' . $post['approval_method'] . '\' where uid=\'' . $_SESSION['uid'] . '\' and pid=\'' .  $pid . '\'');
    }else{
    	// $ar  = alexarank($post[url]);
-   	 	$res = mysql_query('' . 'update `publishersinfo` set `websitename`=\'' . $post['wname'] . '\', `url`=\'' . $post['url'] . '\', `description`=\'' . $post['wdes'] . '\', `catid`=\'' . $post['cats'] . '\' , `catIds`=\'' . $catIds . '\'  where uid=\'' . $_SESSION['uid'] . '\' and pid=\'' . $_SESSION['pid'] . '\'');
+   	 	$res = mysql_query('' . 'update `publishersinfo` set `websitename`=\'' . $post['wname'] . '\', `url`=\'' . $post['url'] . '\', `sale_price`=\'' . $post['wsale'] . '\', `set_price`=\'' . $post['wsale'] . '\', `description`=\'' . $post['wdes'] . '\', `catid`=\'' . $post['cats'] . '\' , `catIds`=\'' . $catIds . '\'  where uid=\'' . $_SESSION['uid'] . '\' and pid=\'' . $_SESSION['pid'] . '\'');
    }
    
     $pid = $post[update_pid];
-	/*
-    $at  = alexathumb($post[url]);
-    $rf  = 'wwwThumb/thumb_' . $pid . '_pic.jpg';
-    copy_remote_file($at, $rf);
-   */
- 	//  mysql_query('' . 'delete from pub_geo where pid=\'' . $pid . '\'');   
-    
+
     if ($res) {
         return true;
     }

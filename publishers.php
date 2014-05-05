@@ -57,6 +57,7 @@ $smarty->assign('www',$rr);
 	
 if(isset($_GET['pid']) && $_SESSION[uid]>0){
     $res2 = mysql_query("SELECT * FROM publishersinfo WHERE uid='$_SESSION[uid]' AND pid='$_GET[pid]'");
+    if(!mysql_num_rows($res2)) header("location: publishers.php");
     while($info = @mysql_fetch_assoc($res2)){
         $_POST['pid'] = $info['pid'];
         $_POST['wname'] = $info['websitename'];
@@ -72,6 +73,7 @@ if(isset($_GET['pid']) && $_SESSION[uid]>0){
         $_POST['clickrate'] = $info['clickrate'];
         $_POST['isadult'] = $info['isadult'];
         $_POST['lang'] = $info['langid'];
+        $_POST['wsale'] = $info['sale_price'];
         $_POST['adposition'] = $info['adposition'];
         $_POST['isrestricted'] = $info['isrestricted'];
         $_POST['restriction'] = $info['restriction'];
@@ -106,6 +108,8 @@ $smarty->assign('lang_ids',$lang_list['lid']);
 $smarty->assign('right_panel','off');
 
 if($do=='edit'){
+    $res3 = mysql_query("SELECT * FROM publishersinfo WHERE uid='$_SESSION[uid]' AND pid='$_GET[pid]'");
+    if(!mysql_num_rows($res3)) header("location: publishers.php");
 	if (isset($_POST['download_script'])) { 
 		//echo $_POST['script_type'];
 		$domain = getDomainName($_POST['url'],'domain');
@@ -113,9 +117,10 @@ if($do=='edit'){
 		$scirpt_file = strtolower("ad_files/".$scrip_name.".php");
 		$my_file = fopen($scirpt_file, 'w') or die("can't open file");
 		//$my = script_content($_POST['script']);
+
 		fwrite($my_file, script_content($_POST['script'], $_config['www'], $_POST['script_type']));
 		fclose($my_file);
-		
+
 		downloadZipFile($scirpt_file);
 		header('Location: '.$_config["www"].'/ad_files/'.$scrip_name.'.php.zip');
 	}

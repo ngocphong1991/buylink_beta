@@ -1,6 +1,5 @@
 <!-- FOOTER -->
 <div class="doitac">
-    <p>noidug</p>
     <img alt="đối tác" src="{$template_dir}/images/doi-tac.png">
 </div>
 <div class="footer">
@@ -38,11 +37,20 @@
             </div>
         </div>
     </div>
-    <div style="float: right;margin-right: 100px;position: relative;top: 200px;right: 20px">
+    <div class="scrollTop"
         <a href="#">
         <img src="{$template_dir}/images/icon-gotop.png">
         </a>
     </div>
     <div class="copyright">Copyright &copy; Design by VDO</div>
 </div>
+{literal}
+    <script type="text/javascript">
+        jQuery(document).ready(function(){
+            jQuery('.scrollTop').click(function(){
+                jQuery('html, body').animate({scrollTop:0},"slow")
+            });
+        });
+    </script>
+{/literal}
 <!-- /END THE FOOTER -->

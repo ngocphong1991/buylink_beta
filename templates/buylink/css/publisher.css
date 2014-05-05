@@ -292,11 +292,11 @@
 =======================================================================================================================
 */
 .doitac{
+    background: url("../images/bg-doi-tac.png") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+    bottom: 310px;
+    height: 108px;
     position: absolute;
     width: 100%;
-    background: url("../images/bg-doi-tac.png") repeat-x;
-    height: 200px;
-    position: absolute;
 }
 .message-error{
     color: red;

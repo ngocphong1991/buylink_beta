@@ -11,7 +11,7 @@
                         <p>
                             <i class="icon-cart"></i> <span>Giỏ hàng:</span>
                             <strong class="cart-regular-count">{$total_cart} link</strong>
-                             - Tổng tiền: <strong class="cart-total">0.00</strong>
+                             - Tổng tiền: <strong class="cart-total">{$total_price}</strong>
                             <a href="{$_config.www}/cart" title="Thanh Toán" class="button red" id="btnViewCart">Thanh toán</a>
                         </p>
                     </div>

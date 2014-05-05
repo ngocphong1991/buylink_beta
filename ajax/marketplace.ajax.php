@@ -51,7 +51,7 @@ $list_pulisher_info = getListPublisherInfo(0, $keyword,'',$category_id, $link_sc
 
 $html = '';
 foreach($list_pulisher_info[info] as $val){
-$html .= '<tr class="row1"> <td><div><a href="http://textlink.vn/view-site.php?pid='.$val[pid].'">'.$val[description].'</a></div></td><td class="centered">'.getLangName($val[langid]).'</td> <td class="centered">'.$val[google_page_rank].' </td><td class="centered">'.$val[alexa_rank].'</td><td class="centered">'.timeAgo($val[domain_age]).'</td> <td class="alignright large green bold">'.my_money_format('%i', $val[sale_price]).'</td> <td class="alignright large green bold">'.getDomainName($val[url]).'</td><td class="centered"><a onclick="addToCart(this, \'regular\', '.$val[pid].', \'\', \'\', \'\'); return false;" href="#"><img alt="Add to cart" src="'.$_config[www].'/templates/'.$_config[template].'/images/btn-add-cart.png"></a></td></tr>';
+$html .= '<tr class="row1"> <td><div><a href="'.$_config['www'].'/view-site.php?pid='.$val[pid].'">'.$val[description].'</a></div></td><td class="centered">'.getLangName($val[langid]).'</td> <td class="centered">'.$val[google_page_rank].' </td><td class="centered">'.$val[alexa_rank].'</td><td class="centered">'.timeAgo($val[domain_age]).'</td> <td class="alignright large green bold">'.my_money_format('%i', $val[sale_price]).'</td> <td class="alignright large green bold">'.getDomainName($val[url]).'</td><td class="centered"><a onclick="addToCart(this, \'regular\', '.$val[pid].', \'\', \'\', \'\'); return false;" href="#"><img alt="Add to cart" src="'.$_config[www].'/templates/'.$_config[template].'/images/btn-add-cart.png"></a></td></tr>';
 }
 
 

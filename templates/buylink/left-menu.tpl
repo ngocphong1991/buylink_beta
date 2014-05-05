@@ -6,11 +6,13 @@
                 <h5>Mua quảng cáo</h5>
                 <ul>
                     <li {if $module_name == 'marketplace'}class="menu-active"{/if}><a href="{$_config.www}/marketplace" title="Mua BuyLink">Mua BuyLink</a></li>                    
+                    <!--
                     <li {if $module_name == 'buyalink'}class="menu-active"{/if}><a href="{$_config.www}/buyalink" title="Mua lẻ Article Link">Mua lẻ Article Link</a></li>
                     <li {if $module_name == 'buyarelink'}class="menu-active"{/if}><a href="{$_config.www}/buyarelink" title="Mua gói Article Link">Mua gói Article Link</a></li>
-                    
+                    -->
                 </ul>
             </li>
+            <!--
             <li class="menu-level-1">
                 <h5>Công cụ SEO</h5>
                 <ul>
@@ -18,7 +20,7 @@
                     <li {if $module_name == 'checklevel'}class="menu-active"{/if}><a href="{$_config.www}/checklevel" title="KT thứ hạng từ khóa">KT thứ hạng từ khóa</a></li>
 
                 </ul>
-            </li>
+            </li>-->
             <li class="menu-level-1">
                 <h5>Quản lý quảng cáo</h5>
                 <ul>

@@ -17,7 +17,7 @@ body {
 a:hover{text-decoration: none}
 .container{width: 962px; padding: 0; border: none}
 .row{margin-left: 0; margin-right: 0}
-.wrapper{margin-bottom: 250px}
+.wrapper{padding-bottom: 400px!important;}
 input[type=text], input[type=password], select, textarea{border: 1px solid #cccccc; padding: 5px;}
 input[readonly]{background: #dddddd}
 input.error, textarea.error{border: 1px solid #ff0000!important;}
@@ -499,4 +499,10 @@ button.submit{text-transform: capitalize; padding-top: 10px; font-weight: bold; 
     height: 48px;
     margin: 0 10px 10px 0;
     width: 48px;
+}
+.scrollTop{
+    position: absolute;
+    right: 40px;
+    bottom: 20px;
+    cursor: pointer;
 }

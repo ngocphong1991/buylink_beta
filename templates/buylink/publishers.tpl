@@ -38,7 +38,7 @@
                                         <div class="checkbox" style="display: inline-block">
                                             <label>
                                                 <input type="checkbox" value="1" name="guide" id="publisherGuide">
-                                                I've read the <a href="{$_config.www}/files/publishers-guide.doc" target="_blank">Publisher's Guide</a>
+                                                Tôi đồng ý với các điều khoảng trong <a href="{$_config.www}/files/publishers-guide.doc" target="_blank">Publisher's Guide</a>
                                             </label>
                                         </div>
                                 </div>
@@ -170,6 +170,7 @@
             jQuery('#websiteUrl').focus();
         });
         jQuery.validator.messages.required = "";
+        jQuery.validator.messages.minlength = "Nhập vào ít nhất 150 ký tự";
         jQuery("#submitWebsiteForm").validate();
     });
 </script>

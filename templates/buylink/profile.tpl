@@ -10,7 +10,8 @@
                     {if $page == ''}
                         <!-- START PROFILE INDEX PAGE-->
                         <h4 class="border-bold">Thông tin tài khoản</h4>
-                        {if isset($msg_profile)}<div class="message-error">{$msg_profile}</div>{/if}
+                        {if isset($msg_profile)}<div class="alert-success alert">{$msg_profile}</div>{/if}
+                        {if isset($msg_error)}<div class="alert-danger alert">{$msg_error}</div>{/if}
                         <!--Start panel-->
                         <div class="panel-group" id="accordion">
                             <!--Start the Account Information-->
@@ -29,19 +30,19 @@
                                             <fieldset>
                                                 <div class="control-group">
                                                     <div class="form-group">
-                                                        <label class="col-sm-3 control-label" for="username">Tên đăng nhập</label>
+                                                        <label class="col-sm-3 control-label" for="username">Tên đăng nhập *</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="col-sm-8" id="username" readonly name="username" value="{$myProfile.username}" />
+                                                            <input type="text" class="col-sm-8 required" id="username" readonly name="username" value="{$myProfile.username}" />
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="col-sm-3 control-label" for="email">Email</label>
+                                                        <label class="col-sm-3 control-label" for="email">Email *</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="col-sm-8" id="email" readonly name="email" value="{$myProfile.email}" />
+                                                            <input type="text" class="col-sm-8 required email" id="email" readonly name="email" value="{$myProfile.email}" />
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
-                                                        <label class="col-sm-3 control-label" for="fullname">Họ và tên</label>
+                                                        <label class="col-sm-3 control-label" for="fullname">Họ và tên *</label>
                                                         <div class="col-sm-9">
                                                             <input type="text" id="fullname" name="data[fullname]" value="{$myProfile.fullname}" class="col-sm-4 required">
                                                         </div>
@@ -49,7 +50,7 @@
                                                     <div class="form-group">
                                                         <label class="col-sm-3 control-label" for="cmnd">Số CMND</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="col-sm-8" id="cmnd" name="data[cmnd]" value="{$myProfile.cmnd}" />
+                                                            <input type="text" class="col-sm-8 number" id="cmnd" name="data[cmnd]" value="{$myProfile.cmnd}" />
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -88,19 +89,19 @@
                                                     <div class="form-group">
                                                         <label class="col-sm-3 control-label" for="phone">Điện thoại di động </label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="col-sm-8" value="{$myProfile.phone}" id="phone" name="data[phone]" />
+                                                            <input type="text" class="col-sm-8 number" value="{$myProfile.phone}" id="phone" name="data[phone]" />
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="col-sm-3 control-label" for="city">Thành phố</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="col-sm-4 required" id="city" value="{$myProfile.city}" name="data[city]" />
+                                                            <input type="text" class="col-sm-4" id="city" value="{$myProfile.city}" name="data[city]" />
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
                                                         <label class="col-sm-3 control-label" for="address">Địa chỉ (không bắt buộc)</label>
                                                         <div class="col-sm-9">
-                                                            <input type="text" class="col-sm-8 required" value="{$myProfile.address}" id="address" name="data[address]" />
+                                                            <input type="text" class="col-sm-8" value="{$myProfile.address}" id="address" name="data[address]" />
                                                         </div>
                                                     </div>
                                                     <div class="form-group">
@@ -281,6 +282,7 @@
 {literal}
     <script type="text/javascript">
         jQuery.validator.messages.required = "";
+        jQuery.validator.messages.number = "Dữ liệu trường này phải là số tự nhiên";
         jQuery("#profileChange").validate();
         jQuery("#emailChange").validate();
         jQuery("#passChange").validate();

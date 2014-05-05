@@ -36,6 +36,12 @@
                                       </div>
                                   </div>
                                   <div class="form-group">
+                                      <label class="col-sm-4 control-label" for="websiteSale">Giá Sale :</label>
+                                      <div class="col-sm-8">
+                                          <input type="text" class="col-sm-5 required"  maxlength="255" value="{$smarty.post.wsale}" name="wsale" id="websiteSale" />
+                                      </div>
+                                  </div>
+                                  <div class="form-group">
                                       <label class="col-sm-4 control-label" for="langid">Ngôn Ngữ *:</label>
                                       <div class="col-sm-8">
                                           <select id="langid" name="langid" size="1" class="col-sm-5">
@@ -108,10 +114,10 @@
                                   </div>
                                   <div class="form-group">
                                       <div class="col-sm-offset-4 col-sm-8">
-                                          <div class="formResults green bold right" id="updateWebsiteResults"></div>
                                           <a onclick="updateWebsite(); return false;" href="#" class="button gray">Cập nhật</a>
                                       </div>
                                   </div>
+                                  <div class="col-sm-offset-4 col-sm-6 alert alert-success" style="display: none" id="updateWebsiteResults"></div>
 
                                 </div>
                             </fieldset>

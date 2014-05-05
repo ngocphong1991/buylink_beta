@@ -16,6 +16,9 @@ else $offset=0;
 $limit=10;
 $num=0;
 
+$res = mysql_query('select count(pid) as total, SUM(price) as price from advertisersinfo where is_paid="N" and uid=' . $_SESSION['uid']);
+$total_price = mysql_result($res, 0, 'price');
+
 if($_GET['keywords']!='Nhập từ khóa cần tìm' && $_GET['keywords']!='')
 $keywords = $_GET['keywords'];
 else $keywords='';
@@ -87,7 +90,7 @@ while ($rl = mysql_fetch_assoc($lres)) {
 $lang_list = get_list('language','language');
 $smarty->assign('langs',$lang_list['language']);
 $smarty->assign('lang_ids',$lang_list['lid']);
-
+$smarty->assign('total_price',$total_price. " ".$_lang['money']);
 $cat_list = get_list('category','category');
 $smarty->assign('cats',$cat_list['category']);
 $smarty->assign('cat_ids',$cat_list['cid']);
